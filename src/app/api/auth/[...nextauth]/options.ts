@@ -19,7 +19,7 @@ export const authOptions: NextAuthOptions = {
       id: "credentials",
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "text" },
+        identifier: { label: "Email or Username", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials: any): Promise<any> {
@@ -27,8 +27,8 @@ export const authOptions: NextAuthOptions = {
         try {
           const user = await UserModel.findOne({
             $or: [
-              { email: credentials.identifier.email },
-              { username: credentials.identifier.username },
+              { email: credentials.identifier },
+              { username: credentials.identifier  },
             ],
           });
           if (!user) {
@@ -55,27 +55,30 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }:{token:JWT,user:User}) {
       const customToken = token as CustomJWT;
-  
+      console.log(`This is the user line 60`,user)
       if (user) {
         customToken._id = user._id?.toString();
         customToken.isVerified = user.isVerified;
         customToken.isAcceptingMessages = user.isAcceptingMessages;
         customToken.username = user.username;
       }
-  
+      console.log(`this is the custom token after filling it up   line 67`, customToken)
       return customToken;
     },
     async session({session,token}:{session:Session,token:JWT}){
 
       const customToken = token as CustomJWT;
-
+      console.log(` this is line 73 session`,session)
+      console.log( ` this is line 74 token, recieved int the call back`,token)
+      console.log(`this is the custom token at line 75`,customToken)
       session.user._id = customToken._id;
       session.user.isVerified = customToken.isVerified;
       session.user.isAcceptingMessages = customToken.isAcceptingMessages;
       session.user.username = customToken.username;
-  
+        
+      console.log(` this is the session at line 81`,session)
       return session;
     }
   },
