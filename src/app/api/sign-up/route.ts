@@ -1,8 +1,9 @@
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 import bcrypt from "bcryptjs";
+import axios from "axios";
 import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
-
+ 
 export async function POST(request: Request) {
   await dbConnect();
   try {
@@ -62,25 +63,22 @@ export async function POST(request: Request) {
       await newUser.save();
     }
 
-    //send verification email
-    const emailResponse = await sendVerificationEmail(email, username, OTP);
-
-    if (!emailResponse.success) {
-      return Response.json(
-        {
-          success: false,
-          message: emailResponse.message,
-        },
-        {
-          status: 500,
-        }
-      );
-    }
-
+      
+    const sendMail= await sendVerificationEmail(email,username,OTP);
+    console.log(`This is the sendMail object logged -`)
+      console.log(sendMail);
+      if( !sendMail){
+        return Response.json({
+          message:'There was an error during  sending  verification email',
+          success:false
+        },{
+          status:500
+        })
+      }
     return Response.json(
       {
-        success: true,
-        message: "User registered successfully. Please verify your email",
+        success: true, 
+        message: "User registered successfully. Please verify your email !",
       },
       {
         status: 201,
