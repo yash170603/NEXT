@@ -16,9 +16,10 @@ export async function middleware(request: NextRequest) {
          url.pathname.startsWith("/verify") ||
          url.pathname.startsWith("/")
   ))) {
-      return NextResponse.rewrite(new URL("/ ", request.url));
+      return NextResponse.rewrite(new URL("/dashboard ", request.url));
      //router.replace('/dashboard')
-  }
+  } 
+
      if(!token && (url.pathname.startsWith('/dashboard')) ){
       return NextResponse.redirect(new URL('/sign-in',request.url))
      }
