@@ -3,7 +3,7 @@ import MessageCard from "@/components/MessageCard";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/components/ui/use-toast";
-import { Message } from "@/model/Message";
+import { Message,MessageModel } from "@/model/Message";
 import { ApiResponse } from "@/types/ApiResponse";
 import { acceptMessageSchema } from "@/validation/acceptMessage";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,7 +17,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 const page = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<InstanceType<typeof MessageModel>[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSwitchLoading, setIsSwitchLoading] = useState(false);
   const { toast } = useToast();
@@ -173,9 +173,9 @@ const page = () => {
 
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
         {messages.length > 0 ? (
-          messages.map((message, index) => (
+          messages.map((message) => (
             <MessageCard
-              key={message._id}
+              key ={String(message._id)}  
               message={message}
               OnMessageDelete={handleDeleteMessage}
             />

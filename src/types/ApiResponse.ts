@@ -1,7 +1,7 @@
-import { Message } from "@/model/Message";
+import { MessageModel} from "@/model/Message";
 export interface ApiResponse{
     success:boolean;
     message:string;
     isAcceptingMessages?:boolean, 
-    messages?:Array<Message>
+    messages?:Array<InstanceType<typeof MessageModel>>
 }

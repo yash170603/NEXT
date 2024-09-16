@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
-import { Message, MessageSchema } from './Message'
+import { Message, MessageSchema ,MessageModel} from './Message'
 
 
 export interface User extends Document {
@@ -10,7 +10,7 @@ export interface User extends Document {
   verifyCodeExpiry: Date;
   isVerified: boolean;
   isAcceptingMessage: boolean;
-  messages: Message[]; // array of message Documents
+  messages: InstanceType<typeof MessageModel>[]; // array of message Documents
 }
 
 const UserSchema: Schema<User> = new Schema({
@@ -53,7 +53,7 @@ const UserSchema: Schema<User> = new Schema({
   },
 
   messages: {
-    type: [MessageSchema],
+    type: [MessageModel],
   },
 });
 
