@@ -11,6 +11,7 @@ import {
 export async function POST(request: Request) {
   await dbConnect();
   const session = await getServerSession(authOptions);
+  console.log(`THis is the session at accept-message`,session)
   if (!session || !session.user) {
     return createErrorResponse("Not Authenticated", 401);
   }

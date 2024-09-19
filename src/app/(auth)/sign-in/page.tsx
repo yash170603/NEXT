@@ -164,6 +164,18 @@ const page = () => {
               </Button>
             </form>
           </Form>
+          <div className="text-center mt-4">
+            <p>
+              Not a member?{" "}
+              <Link
+                href="/sign-up"
+                className="text-blue-500
+            hover:text-blue-800"
+              >
+                Sign Up
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

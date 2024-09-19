@@ -11,13 +11,13 @@ import { Separator } from "@radix-ui/react-separator";
 import axios, { AxiosError } from "axios";
 import { Loader2, RefreshCcw } from "lucide-react";
 
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 
 import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 const page = () => {
-  const [messages, setMessages] = useState<InstanceType<typeof MessageModel>[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSwitchLoading, setIsSwitchLoading] = useState(false);
   const { toast } = useToast();
@@ -35,18 +35,22 @@ const page = () => {
     setIsSwitchLoading(true);
     try {
       const response = await axios.get<ApiResponse>("/api/accept-messages");
+      console.log("This is testing response at line 38 at dashbaord")
+      console.log( response.data)
       setValue(acceptMessages, response.data.isAcceptingMessages);
     } catch (error) {
-      const axiosError = error as AxiosError<ApiResponse>;
-      toast({
-        title: "Error",
-        description:
-          axiosError?.response?.data.message ||
-          "Failed to fetch message settings",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSwitchLoading(false);
+      if (error instanceof TypeError) {
+        // Handle TypeError differently, or log it and continue
+        //console.log("TypeError caught, but ignoring:", error);
+      } else {
+        const axiosError = error as AxiosError;
+        console.log(`this is the error at line 42`, axiosError);
+        toast({
+          title: "Error",
+          description: axiosError.message || "Failed to fetch message settings line 47",
+          variant: "destructive",
+        });
+      }
     }
   }, [setValue]);
 
@@ -56,23 +60,37 @@ const page = () => {
       setIsSwitchLoading(false);
 
       try {
-        const response = await axios.get<ApiResponse>("/api/get-messages");
+          const session= await getSession();
+          console.log(`This is the session o line 60 at dashbaord.tsx`,session)
+        const response = await axios.get("/api/get-messages");
+        console.log(`This is the response form the line 63 at dashboard, after the api call of get messages`,response)
+        console.log(`this is the response.data.messages`,response.data.messages);
+        toast({
+          description:response.data.message,
+          variant:"destructive"
+        })
         setMessages(response.data.messages || []);
+      
         if (refresh) {
           toast({
             title: "Refreshed messages",
-            description: "Shpwing latest messages",
+            description: "Showing latest messages",
+            variant:"destructive"
           });
         }
       } catch (error) {
         const axiosError = error as AxiosError<ApiResponse>;
-        toast({
-          title: "Error",
-          description:
-            axiosError?.response?.data.message ||
-            "Failed to fetch message settings",
-          variant: "destructive",
-        });
+        console.log(`THis is the axiosError, idk why but fuck this `,axiosError)
+        if( axiosError){
+          toast({
+            title: "Error",
+            description:
+              axiosError?.response?.data.message||
+              "Failed to fetch message settings",
+            variant: "destructive",
+          });
+        }
+        
       } finally {
         setIsLoading(false);
         setIsSwitchLoading(false);
@@ -171,7 +189,7 @@ const page = () => {
         )}
       </Button>
 
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
         {messages.length > 0 ? (
           messages.map((message) => (
             <MessageCard
@@ -183,7 +201,7 @@ const page = () => {
         ) : (
           <>NO Message to display</>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
