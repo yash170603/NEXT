@@ -48,7 +48,7 @@
 import React from "react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
-import { User } from "next-auth";
+
 import { Button } from "./ui/button";
 import { LogOut, LogIn, MessageCircle } from "lucide-react";
 
@@ -57,7 +57,7 @@ const Navbar = () => {
   const user = session?.user;
 
   return (
-    <nav className="bg-gray-700 text-white shadow-lg">
+    <nav className="bg-gray-700 text-white shadow-xl">
       <div className="container mx-auto px-4 py-3">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <Link href="/" className="flex items-center space-x-2 text-2xl font-bold text-blue-400 hover:text-blue-300 transition-colors duration-200">
