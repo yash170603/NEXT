@@ -44,6 +44,8 @@ const VerifyAccount = () => {
       toast({
         description: response.data.message,
         duration: 3000,
+        className:'bg-gray-800 text-white'
+
       });
       if (router) router.replace(`/sign-in`);
       setIsSubmitting(false);
@@ -55,6 +57,8 @@ const VerifyAccount = () => {
         title: "Signup failed",
         description: errorMessage,
         variant: "destructive",
+        className:'bg-gray-800 text-white'
+
       });
       setIsSubmitting(false);
     }

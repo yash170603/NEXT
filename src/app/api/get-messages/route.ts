@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
-import { User } from "next-auth";
+
 import { authOptions } from "../auth/[...nextauth]/options";
 import { createErrorResponse } from "@/types/responseUtils";
 import mongoose from "mongoose";
@@ -9,7 +9,7 @@ import mongoose from "mongoose";
 
 export async function GET(request: Request) {
   await dbConnect();
-  console.log("lauda lassan");
+
   const session = await getServerSession(authOptions);
   console.log(`this is the session at route get-messsages`, session);
   if (!session || !session.user) {
@@ -21,7 +21,7 @@ export async function GET(request: Request) {
   console.log(userId);
   try {
     const userMessages = await UserModel.aggregate([
-      { $match: { id: userId } },
+      { $match: { _id: userId } },
       { $unwind: "$messages" },
       { $sort: { "messages.createdAt": -1 } },
       { $group: { _id: "$_id", messages: { $push: "$messages" } } },
@@ -44,11 +44,11 @@ export async function GET(request: Request) {
         { status: 200 }
       );
     }
-
+     
     return Response.json(
       {
         success: true,
-        messages: userMessages[0].messages,
+        messages:  userMessages[0].messages,
       },
       { status: 200 }
     );

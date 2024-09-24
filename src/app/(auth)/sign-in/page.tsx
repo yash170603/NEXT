@@ -75,13 +75,15 @@ const page = () => {
              title:"Login unsuccessful!",
              description:"Incorrect Credentials or password",
              variant:'destructive',
+             className:'bg-gray-800 text-white'
          })
       }
       if( signingIn?.url){
         toast({
           title:"Login successful!",
-         
           variant:'destructive',
+          className:'bg-gray-800 text-white'
+
       })
         router.replace(`/dashboard`);
       }
@@ -95,6 +97,8 @@ const page = () => {
         title: "Signin failed",
         description: errorMessage,
         variant: "destructive",
+        className:'bg-gray-800 text-white'
+
       });
       setisSubmitting(false);
      }

@@ -85,6 +85,8 @@ const page = () => {
         title: "Success",
         description: response.data.message,
         duration: 3000,
+        className:'bg-gray-800 text-white'
+
       });
       if (router) router.replace(`/verify/${username}`);
       setisSubmitting(false);
@@ -96,6 +98,8 @@ const page = () => {
         title: "Signup failed",
         description: errorMessage,
         variant: "destructive",
+        className:'bg-gray-800 text-white'
+
       });
       setisSubmitting(false);
     }

@@ -8,22 +8,23 @@ import {
 } from "@/types/responseUtils";
 
 
-export async function DELETE(request:Request,{params}: {params:{messageid:string}} ) {
+export async function DELETE(request:Request,{params}: {params:{messageId:string}} ) {
     await dbConnect();
       //const {messageid}= params  or nextLine
-      const messageId= params.messageid;
+      const messageId= params.messageId;
 
 
     const session = await getServerSession(authOptions);
     if (!session || !session.user) {
-      return createErrorResponse("Not Authenticated", 401);
+      return createErrorResponse("Not Authenticated ", 401);
     }
     const current_User = session.user;
 
 
     try {
-       const response = UserModel.updateOne({_id:current_User._id},{$pull:{messages:{_id:messageId}}})
-        if((await response).modifiedCount ==0 ){
+       const response = await UserModel.updateOne({_id:current_User._id},{$pull:{messages:{_id:messageId}}})
+       console.log("this is line 26 from delete message api",response)
+        if( response.modifiedCount ==0 ){
              return createErrorResponse("Message not found, or already deleted",404)   
         }
           
