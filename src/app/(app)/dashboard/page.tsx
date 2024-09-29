@@ -143,7 +143,7 @@ export default function Dashboard() {
 
   if (!session?.user) {
     return (
-      <div className="flex items-center justify-center h-screen text-gray-800 dark:text-gray-200">
+      <div className="flex items-center justify-center h-screen bg-gray-800 dark:text-white text-xl">
         Please login to access the dashboard
       </div>
     );

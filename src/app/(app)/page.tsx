@@ -1,112 +1,129 @@
+// "use client";
+// import { Card, CardContent } from "@/components/ui/card";
+// import {
+//   Carousel,
+//   CarouselContent,
+//   CarouselItem,
+//   CarouselNext,
+//   CarouselPrevious,
+// } from "@/components/ui/carousel";
+// import message from "@/message.json";
+// import Autoplay from "embla-carousel-autoplay";
+
+// const page = () => {
+//   return (
+//     <div className="">
+//       <main className="flex-grow flex flex-col items-center justify-center px-4 md:px-24 py-12 bg-gray-800 text-white h-screen">
+//         <section className="text-center mb-8 md:mb-12  w-full bg-gray-600">
+//           <h1 className="text-3xl md:text-5xl font-bold">
+//             Send Anonymous Messages.
+//           </h1>
+//           <p className="mt-3 md:mt-4 text-base md:text-lg">
+//             Mystery Message - Where your identity remains a secret.
+//           </p>
+//         </section>
+//         <Carousel
+//           plugins={[
+//             Autoplay({
+//               delay: 2000,
+//             }),
+//           ]}
+//         >
+//           <CarouselContent>
+//             {message.map((val, index) => (
+//               <CarouselItem key={index}>
+//                 <div className="p-1">
+//                   <Card>
+//                     <CardContent className="flex  items-center justify-center p-6">
+//                       <span className="text-4xl font-semibold">
+//                         {val.content}
+//                       </span>
+//                       <span className="text-4xl font-semibold">
+//                         {val.title}
+//                       </span>
+//                       <span className="text-4xl font-semibold">
+//                         {val.received}
+//                       </span>
+//                     </CardContent>
+//                   </Card>
+//                 </div>
+//               </CarouselItem>
+//             ))}
+//           </CarouselContent>
+//           <CarouselPrevious />
+//           <CarouselNext />
+//         </Carousel>
+//       </main>
+//       <footer className=" flex flex-col justify-center items-center  bg-gray-800 text-white text-md pt-4">
+//         <p>A product by Yash Talreja. </p>
+//         <p>contact at - yashtalreja180@gmail.com</p>
+//       </footer>
+//     </div>
+//   );
+// };
+
+// export default page;
+
 'use client'
-import Image from "next/image";
 
-export default function Home() {
+import { Card, CardContent } from "@/components/ui/card"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+import message from "@/message.json"
+import Autoplay from "embla-carousel-autoplay"
+import { MessageCircle } from "lucide-react"
+
+export default function AnonymousMessagesPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-gray-400">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-       
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-          <h1>Ye hai main page lvde</h1>
-        </div>
-      </div>
-
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+      <main className="flex-grow flex flex-col items-center justify-center px-4 md:px-24 py-12">
+        <section className="text-center mb-12 w-full">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+            Send Anonymous Messages
+          </h1>
+          <p className="mt-4 text-lg md:text-xl text-gray-300">
+            Mystery Message - Where your identity remains a secret
           </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+        </section>
+        
+        <Carousel
+          plugins={[
+            Autoplay({
+              delay: 3000,
+            }),
+          ]}
+          className="w-full max-w-3xl"
         >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
+          <CarouselContent>
+            {message.map((val, index) => (
+              <CarouselItem key={index}>
+                <Card className="bg-gray-800 border border-gray-700">
+                  <CardContent className="flex flex-col items-center justify-center p-8 text-center">
+                    <MessageCircle className="w-12 h-12 mb-4 text-purple-400" />
+                    <h2 className="text-2xl font-semibold mb-2 text-purple-300">{val.title}</h2>
+                    <p className="text-lg mb-4 text-gray-300">{val.content}</p>
+                    <span className="text-sm text-gray-400">Received: {val.received}</span>
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="text-white" />
+          <CarouselNext className="text-white" />
+        </Carousel>
+      </main>
+      
+      <footer className="flex flex-col justify-center items-center bg-gray-900 text-gray-300 py-6">
+        <p className="mb-2">A product by Yash Talreja</p>
+        <a href="mailto:yashtalreja180@gmail.com" className="hover:text-purple-400 transition-colors">
+          yashtalreja180@gmail.com
         </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+      </footer>
+    </div>
+  )
 }

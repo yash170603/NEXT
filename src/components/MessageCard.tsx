@@ -113,7 +113,7 @@ type MessageCardProps = {
 
 const MessageCard = ({ message, OnMessageDelete }: MessageCardProps) => {
   const { toast } = useToast();
-
+ console.log(message)
   const handleDeleteConfirm = async (id: any) => {
     const id_ = String(id);
     const response = await axios.delete<ApiResponse>(`/api/delete-message/${id_}`);
@@ -167,6 +167,9 @@ const MessageCard = ({ message, OnMessageDelete }: MessageCardProps) => {
       <CardContent className="p-4">
         <CardDescription className="text-gray-700">
           Posted on: {new Date(message.createdAt).toLocaleDateString()}
+          <br />
+          At: {new Date(message.createdAt).toLocaleTimeString()}
+          
         </CardDescription>
       </CardContent>
      

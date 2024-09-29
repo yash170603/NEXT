@@ -6,7 +6,7 @@ import { Message } from '@/model/User'; // This still refers to the interface
 export async function POST(request: Request) {
   await dbConnect();
   const { username, content } = await request.json();
-
+   console.log(username)
   try {
     const user = await UserModel.findOne({ username });
     console.log('this is the user at line 50 sendmessage api ', user)
