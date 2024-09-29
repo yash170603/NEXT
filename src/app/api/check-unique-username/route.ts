@@ -95,11 +95,12 @@ const usernameQuerySchema = z.object({
 });
 
 export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const username = searchParams.get("username");
   await dbConnect();
 
   try {
-    const searchParams = request.nextUrl.searchParams;
-    const username = searchParams.get("username");
+   
 
     const validatingObject = { username };
 
